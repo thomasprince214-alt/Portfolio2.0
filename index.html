@@ -8,21 +8,18 @@
 </head>
 <body>
 
-<!-- Navigation Bar -->
 <nav class="navbar">
     <div class="container">
         <div class="logo">Prince Thomas</div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </div>
 </nav>
 
-<!-- Hero Section -->
 <header id="home" class="hero">
     <div class="container">
         <h1>Prince Thomas</h1>
@@ -31,7 +28,6 @@
     </div>
 </header>
 
-<!-- About Section -->
 <section id="about" class="about-section">
     <div class="container">
         <h2>About Me</h2>
@@ -40,37 +36,22 @@
     </div>
 </section>
 
-<!-- Skills Section -->
 <section id="skills" class="skills-section">
     <div class="container">
         <h2>Skills</h2>
         <div id="skillsList" class="skills-grid">
-            <!-- Skills will be loaded from API -->
+            <div class="skill-card"><p>JavaScript (ES6+)</p></div>
+            <div class="skill-card"><p>React.js</p></div>
+            <div class="skill-card"><p>Node.js</p></div>
+            <div class="skill-card"><p>Express.js</p></div>
+            <div class="skill-card"><p>MongoDB</p></div>
+            <div class="skill-card"><p>PostgreSQL / Supabase</p></div>
+            <div class="skill-card"><p>HTML5 & CSS3</p></div>
+            <div class="skill-card"><p>Git & GitHub</p></div>
         </div>
     </div>
 </section>
 
-<!-- Projects Section -->
-<section id="projects" class="projects-section">
-    <div class="container">
-        <h2>Featured Projects</h2>
-        <div id="projectsList" class="projects-grid">
-            <!-- Projects will be loaded from API -->
-        </div>
-        <div class="add-project-form">
-            <h3>Add a New Project</h3>
-            <form id="projectForm">
-                <input type="text" id="projectTitle" placeholder="Project Title" required>
-                <textarea id="projectDescription" placeholder="Project Description" required></textarea>
-                <input type="url" id="projectLink" placeholder="Project Link (optional)">
-                <input type="text" id="projectTech" placeholder="Technologies (comma-separated)" required>
-                <button type="submit">Add Project</button>
-            </form>
-        </div>
-    </div>
-</section>
-
-<!-- Contact Section -->
 <section id="contact" class="contact-section">
     <div class="container">
         <h2>Get In Touch</h2>
