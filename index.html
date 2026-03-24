@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prince Thomas | Portfolio</title>
+    <title>Prince Thomas | Software & Scripts</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav class="navbar">
         <div class="container">
-            <h1 class="logo">Teri.</h1>
+            <h1 class="logo">Prince Thomas.</h1>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Work</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -21,28 +22,87 @@
 
     <header id="home" class="hero">
         <div class="container hero-content">
-            <h2>Hi, I'm Prince Thomas </h2>
-            <p class="tagline">Software Developer & Mockumentary Writer</p>
-            <p class="bio">Building robust digital experiences and writing grounded, comedic stories. Whether it's clean code or a clever script, I focus on the details.</p>
-            <a href="#contact" class="btn">Get In Touch</a>
+            <h2 class="fade-in">Hi, I'm Prince Thomas.</h2>
+            <p class="tagline fade-in">Software Developer & Mockumentary Writer</p>
+            <p class="bio fade-in">Building robust digital experiences and writing grounded, comedic stories. I bridge the gap between logical architecture and compelling, chaotic narratives.</p>
+            <a href="#contact" class="btn fade-in">Get In Touch</a>
         </div>
     </header>
 
+    <section id="about" class="about-section">
+        <div class="container fade-in">
+            <h2 class="section-title">The Story So Far</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I thrive at the intersection of structure and creativity. In the tech world, I specialize in building scalable, full-stack web applications. I love diving into database architecture, crafting clean APIs, and ensuring the front-end user experience is as intuitive as possible.</p>
+                    <p>But my brain doesn't just run on code. When I step away from the IDE, I'm usually drafting mockumentary scripts. Writing comedy requires a different kind of problem-solving—figuring out pacing, character arcs, and the perfect punchline. Surprisingly, debugging a broken function and fixing a flat scene in a script require the exact same kind of analytical thinking.</p>
+                    <p>Whether I'm deploying a new feature to production or pitching a pilot about the absurdities of corporate life, I bring a keen eye for detail and a deep empathy for the audience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="skills-section">
+        <div class="container fade-in">
+            <h2 class="section-title">What I Bring to the Table</h2>
+            <div class="skills-grid">
+                
+                <div class="skills-category">
+                    <h3>Frontend Development</h3>
+                    <ul class="skill-list">
+                        <li><span>React.js</span> <div class="bar"><div class="fill" style="width: 90%;"></div></div></li>
+                        <li><span>JavaScript (ES6+)</span> <div class="bar"><div class="fill" style="width: 95%;"></div></div></li>
+                        <li><span>HTML5 & Modern CSS</span> <div class="bar"><div class="fill" style="width: 90%;"></div></div></li>
+                        <li><span>Tailwind / UI Libraries</span> <div class="bar"><div class="fill" style="width: 85%;"></div></div></li>
+                    </ul>
+                </div>
+
+                <div class="skills-category">
+                    <h3>Backend & Databases</h3>
+                    <ul class="skill-list">
+                        <li><span>Node.js / Express</span> <div class="bar"><div class="fill" style="width: 85%;"></div></div></li>
+                        <li><span>PostgreSQL</span> <div class="bar"><div class="fill" style="width: 80%;"></div></div></li>
+                        <li><span>Supabase / Firebase</span> <div class="bar"><div class="fill" style="width: 85%;"></div></div></li>
+                        <li><span>RESTful APIs</span> <div class="bar"><div class="fill" style="width: 90%;"></div></div></li>
+                    </ul>
+                </div>
+
+                <div class="skills-category">
+                    <h3>Tools & Writing</h3>
+                    <ul class="skill-list">
+                        <li><span>Git & Version Control</span></li>
+                        <li><span>Vercel / Cloud Hosting</span></li>
+                        <li><span>Screenwriting (Final Draft)</span></li>
+                        <li><span>Story Structuring & Pitching</span></li>
+                        <li><span>Dialogue Editing</span></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <section id="projects" class="projects-section">
-        <div class="container">
+        <div class="container fade-in">
             <h2 class="section-title">Selected Work</h2>
             <div class="project-grid">
                 
                 <div class="project-card">
-                    <h3>Full-Stack Application</h3>
+                    <h3>Full-Stack Dashboard</h3>
                     <p class="category">Software Development</p>
-                    <p>A responsive web platform built with modern JavaScript frameworks, featuring secure authentication and real-time database syncing.</p>
+                    <p>A responsive web platform built with React and Supabase, featuring secure authentication, real-time data syncing, and dynamic chart visualizations.</p>
                 </div>
 
                 <div class="project-card">
-                    <h3>Original Pilot</h3>
+                    <h3>"The Daily Grind"</h3>
                     <p class="category">Mockumentary Script</p>
-                    <p>A half-hour comedy pilot exploring the absurd, hyper-specific workplace dynamics of a fictional local government office.</p>
+                    <p>A half-hour comedy pilot exploring the absurd, hyper-specific workplace dynamics of a fictional, overly-bureaucratic local government office.</p>
+                </div>
+
+                <div class="project-card">
+                    <h3>ArcTracker API</h3>
+                    <p class="category">Hybrid Project</p>
+                    <p>A custom Node.js backend tool I built to help writers log, tag, and track character emotional arcs across multiple episodes in a season.</p>
                 </div>
 
             </div>
@@ -50,9 +110,9 @@
     </section>
 
     <section id="contact" class="contact-section">
-        <div class="container">
+        <div class="container fade-in">
             <h2 class="section-title">Let's Connect</h2>
-            <p style="text-align: center; margin-bottom: 2rem;">Send me a message and it will route directly to my Supabase database.</p>
+            <p style="text-align: center; margin-bottom: 2rem; color: #666;">Looking to collaborate on a codebase or a script? Drop a message below.</p>
             
             <form id="contactForm" class="contact-form">
                 <input type="text" id="name" placeholder="Your Name" required>
@@ -67,7 +127,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Teri. All rights reserved.</p>
+            <p>&copy; 2026 Prince Thomas. All rights reserved.</p>
         </div>
     </footer>
 
