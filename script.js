@@ -1,4 +1,7 @@
-const API_BASE_URL = 'http://localhost:5000';
+// 1. Initialize Supabase
+const supabaseUrl = 'YOUR_SUPABASE_URL'; // e.g., 'https://xyz.supabase.co'
+const supabaseKey = 'YOUR_SUPABASE_ANON_KEY'; // the long jwt string
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // Load initial data when page loads
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,12 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
     setupFormListeners();
 });
 
-// Load skills from API
+// Load skills from Supabase
 async function loadSkills() {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/skills`);
-        const skills = await response.json();
-        displaySkills(skills);
+        const { data: skills, error } = await supabase
+            .from('skills')
+            .select('name');
+
+        if (error) throw error;
+        
+        // Convert array of objects [{name: 'React'}] to array of strings ['React']
+        const skillNames = skills.map(s => s.name);
+        displaySkills(skillNames);
     } catch (error) {
         console.error('Error loading skills:', error);
     }
@@ -31,11 +40,15 @@ function displaySkills(skills) {
     });
 }
 
-// Load projects from API
+// Load projects from Supabase
 async function loadProjects() {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/projects`);
-        const projects = await response.json();
+        const { data: projects, error } = await supabase
+            .from('projects')
+            .select('*')
+            .order('id', { ascending: false }); // Newest first
+
+        if (error) throw error;
         displayProjects(projects);
     } catch (error) {
         console.error('Error loading projects:', error);
@@ -48,25 +61,11 @@ async function loadProjects() {
 function displaySampleProjects() {
     const sampleProjects = [
         {
-            _id: '1',
+            id: '1',
             title: 'Portfolio Website',
-            description: 'A full-stack portfolio website built with Node.js, Express, and MongoDB. Features a contact form and project showcase.',
+            description: 'A full-stack portfolio website integrated with Supabase. Features a contact form and project showcase.',
             link: '#',
-            technologies: ['Node.js', 'Express', 'MongoDB', 'JavaScript']
-        },
-        {
-            _id: '2',
-            title: 'E-Commerce Platform',
-            description: 'A complete e-commerce application with product catalogue, shopping cart, and payment integration.',
-            link: '#',
-            technologies: ['React', 'Node.js', 'MongoDB', 'Stripe']
-        },
-        {
-            _id: '3',
-            title: 'Task Management App',
-            description: 'A collaborative task management tool with real-time updates and team collaboration features.',
-            link: '#',
-            technologies: ['React', 'Node.js', 'MongoDB', 'Socket.io']
+            technologies: ['Supabase', 'HTML', 'CSS', 'JavaScript']
         }
     ];
     displayProjects(sampleProjects);
@@ -77,7 +76,7 @@ function displayProjects(projects) {
     const projectsList = document.getElementById('projectsList');
     projectsList.innerHTML = '';
     
-    if (projects.length === 0) {
+    if (!projects || projects.length === 0) {
         projectsList.innerHTML = '<p style="text-align: center; grid-column: 1/-1;">No projects yet. Add your first project!</p>';
         return;
     }
@@ -86,7 +85,7 @@ function displayProjects(projects) {
         const projectCard = document.createElement('div');
         projectCard.className = 'project-card';
         
-        const techTags = project.technologies
+        const techTags = (project.technologies || [])
             .map(tech => `<span class="tech-tag">${tech}</span>`)
             .join('');
         
@@ -102,10 +101,7 @@ function displayProjects(projects) {
 
 // Setup form listeners
 function setupFormListeners() {
-    // Contact form
     document.getElementById('contactForm').addEventListener('submit', handleContactSubmit);
-    
-    // Project form
     document.getElementById('projectForm').addEventListener('submit', handleProjectSubmit);
 }
 
@@ -116,32 +112,24 @@ async function handleContactSubmit(e) {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
+    const messageStatus = document.getElementById('messageStatus');
     
     try {
-        const response = await fetch(`${API_BASE_URL}/api/contacts`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name, email, message })
-        });
+        // Insert data into Supabase 'contacts' table
+        const { error } = await supabase
+            .from('contacts')
+            .insert([{ name, email, message }]);
         
-        const result = await response.json();
+        if (error) throw error;
         
-        const messageStatus = document.getElementById('messageStatus');
-        if (response.ok) {
-            messageStatus.className = 'message-status success';
-            messageStatus.textContent = result.message || 'Message sent successfully!';
-            document.getElementById('contactForm').reset();
-        } else {
-            messageStatus.className = 'message-status error';
-            messageStatus.textContent = result.error || 'Failed to send message. Please try again.';
-        }
+        messageStatus.className = 'message-status success';
+        messageStatus.textContent = 'Message sent successfully!';
+        document.getElementById('contactForm').reset();
+        
     } catch (error) {
         console.error('Error sending message:', error);
-        const messageStatus = document.getElementById('messageStatus');
         messageStatus.className = 'message-status error';
-        messageStatus.textContent = 'Error: Unable to connect to server. Make sure the server is running on http://localhost:5000';
+        messageStatus.textContent = 'Failed to send message. Please try again.';
     }
 }
 
@@ -156,30 +144,20 @@ async function handleProjectSubmit(e) {
     const technologies = technologiesInput.split(',').map(tech => tech.trim());
     
     try {
-        const response = await fetch(`${API_BASE_URL}/api/projects`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ title, description, link, technologies })
-        });
+        // Insert data into Supabase 'projects' table
+        const { error } = await supabase
+            .from('projects')
+            .insert([{ title, description, link, technologies }]);
         
-        const result = await response.json();
+        if (error) throw error;
         
-        if (response.ok) {
-            // Reset form
-            document.getElementById('projectForm').reset();
-            
-            // Reload projects
-            loadProjects();
-            
-            // Show success message
-            alert(result.message || 'Project added successfully!');
-        } else {
-            alert(result.error || 'Failed to add project. Please try again.');
-        }
+        // Reset form and reload projects
+        document.getElementById('projectForm').reset();
+        loadProjects();
+        alert('Project added successfully!');
+        
     } catch (error) {
         console.error('Error adding project:', error);
-        alert('Error: Unable to connect to server. Make sure the server is running on http://localhost:5000');
+        alert('Failed to add project. Please try again.');
     }
 }
