@@ -1,7 +1,7 @@
 // 1. Initialize Supabase
 // Don't forget to replace these with your actual Supabase project credentials!
-const supabaseUrl = 'YOUR_SUPABASE_URL'; 
-const supabaseKey = 'YOUR_SUPABASE_ANON_KEY'; 
+const supabaseUrl = 'https://xvvgzhzhawancrnyapty.supabase.co'; 
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh2dmd6aHpoYXdhbmNybnlhcHR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNDM5MzUsImV4cCI6MjA4OTkxOTkzNX0.JKnLTunupsSDtBeEbsQ_MdD29zJya_plFAgSPrNeKak'; 
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // Setup listeners when the page loads
