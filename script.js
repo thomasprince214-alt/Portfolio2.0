@@ -1,6 +1,6 @@
 // 1. Initialize Supabase
-const supabaseUrl = 'YOUR_SUPABASE_URL'; // e.g., 'https://xyz.supabase.co'
-const supabaseKey = 'YOUR_SUPABASE_ANON_KEY'; // the long jwt string
+const supabaseUrl = 'https://xvvgzhzhawancrnyapty.supabase.co'; // e.g., 'https://xyz.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh2dmd6aHpoYXdhbmNybnlhcHR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNDM5MzUsImV4cCI6MjA4OTkxOTkzNX0.JKnLTunupsSDtBeEbsQ_MdD29zJya_plFAgSPrNeKak'; // the long jwt string
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // Load initial data when page loads
