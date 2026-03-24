@@ -1,57 +1,60 @@
-// 1. Paste your Supabase details here
+// 1. Initialize Supabase Connection
 const supabaseUrl = 'https://xvvgzhzhawancrnyapty.supabase.co'; 
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh2dmd6aHpoYXdhbmNybnlhcHR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNDM5MzUsImV4cCI6MjA4OTkxOTkzNX0.JKnLTunupsSDtBeEbsQ_MdD29zJya_plFAgSPrNeKak';  
-
-// Initialize Supabase
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh2dmd6aHpoYXdhbmNybnlhcHR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNDM5MzUsImV4cCI6MjA4OTkxOTkzNX0.JKnLTunupsSDtBeEbsQ_MdD29zJya_plFAgSPrNeKak'; 
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-// 2. Connect the Form
-const contactForm = document.getElementById('contactForm');
-const submitBtn = document.getElementById('submitBtn');
-const messageStatus = document.getElementById('messageStatus');
+// 2. Wait for the page to load
+document.addEventListener('DOMContentLoaded', () => {
+    
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMessage = document.getElementById('statusMessage');
 
-contactForm.addEventListener('submit', async function(event) {
-    // Stop the page from reloading
-    event.preventDefault();
-    
-    // Get the user's text
-    const nameInput = document.getElementById('name').value;
-    const emailInput = document.getElementById('email').value;
-    const messageInput = document.getElementById('message').value;
-    
-    // Change button to show it is working
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
-    messageStatus.style.display = 'none';
-    
-    try {
-        // Send data directly to your Supabase 'contacts' table
-        const { error } = await supabase
-            .from('contacts')
-            .insert([
-                { name: nameInput, email: emailInput, message: messageInput }
-            ]);
+    // 3. Handle Form Submission
+    contactForm.addEventListener('submit', async function(e) {
+        // Prevent the page from refreshing
+        e.preventDefault();
         
-        // If Supabase says no, throw an error
-        if (error) {
-            throw error;
+        // Grab the user's input
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        
+        // Update UI to show loading state
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+        statusMessage.style.display = 'none';
+        
+        try {
+            // Send the data to the 'portfolio_messages' table in Supabase
+            const { error } = await supabase
+                .from('portfolio_messages')
+                .insert([
+                    { name: name, email: email, message: message }
+                ]);
+            
+            // If Supabase returns an error, throw it so the catch block handles it
+            if (error) throw error;
+            
+            // Show Success UI
+            statusMessage.className = 'status-message success';
+            statusMessage.textContent = 'Thanks for reaching out! Your message was sent successfully.';
+            statusMessage.style.display = 'block';
+            
+            // Clear the form fields
+            contactForm.reset();
+            
+        } catch (error) {
+            // Show Error UI
+            console.error("Database Error:", error);
+            statusMessage.className = 'status-message error';
+            statusMessage.textContent = 'Failed to send message: ' + (error.message || 'Please try again.');
+            statusMessage.style.display = 'block';
+            
+        } finally {
+            // Reset the button back to normal
+            submitBtn.textContent = 'Send Message';
+            submitBtn.disabled = false;
         }
-        
-        // Success!
-        messageStatus.className = 'message-status success';
-        messageStatus.textContent = 'Message sent successfully to Supabase!';
-        messageStatus.style.display = 'block';
-        contactForm.reset(); // Clear the form
-        
-    } catch (err) {
-        // Failure! Show the error message on the screen
-        console.error("Supabase Error:", err);
-        messageStatus.className = 'message-status error';
-        messageStatus.textContent = 'Error: ' + err.message;
-        messageStatus.style.display = 'block';
-    } finally {
-        // Reset the button
-        submitBtn.textContent = 'Send Message';
-        submitBtn.disabled = false;
-    }
+    });
 });
