@@ -2,10 +2,6 @@
 const supabaseUrl = 'https://xvvgzhzhawancrnyapty.supabase.co'; 
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh2dmd6aHpoYXdhbmNybnlhcHR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNDM5MzUsImV4cCI6MjA4OTkxOTkzNX0.JKnLTunupsSDtBeEbsQ_MdD29zJya_plFAgSPrNeKak'; 
 
-// 🚨 SAFETY CHECK: This will alert you if you forgot to add your keys!
-if (supabaseUrl === 'https://xvvgzhzhawancrnyapty.supabase.co' || supabaseUrl === '') {
-    alert("STOP: You still have 'https://xvvgzhzhawancrnyapty.supabase.co' in your script.js. You must replace it with your actual Supabase URL!");
-}
 
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
